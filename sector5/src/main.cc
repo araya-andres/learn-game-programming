@@ -13,6 +13,14 @@ int main()
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
+            if (event.type == sf::Event::KeyPressed) {
+                if (event.key.code == sf::Keyboard::Right) {
+                    player.turn_right();
+                }
+                if (event.key.code == sf::Keyboard::Left) {
+                    player.turn_left();
+                }
+            }
         }
         window.clear(sf::Color::Black);
         player.draw();

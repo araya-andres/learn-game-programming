@@ -7,6 +7,8 @@ struct Player
 {
     Player(sf::RenderWindow&);
     void draw();
+    void turn_right();
+    void turn_left();
 
 private:
     sf::RenderWindow& window_;

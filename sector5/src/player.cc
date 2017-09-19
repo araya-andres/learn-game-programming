@@ -16,3 +16,13 @@ void Player::draw()
     sprite_.rotate(angle_);
     window_.draw(sprite_);
 }
+
+void Player::turn_right()
+{
+    angle_ += 3.0f;
+}
+
+void Player::turn_left()
+{
+    angle_ -= 3.0f;
+}
