@@ -9,13 +9,17 @@ struct Player
     void draw();
     void turn_right();
     void turn_left();
+    void move();
+    void accelerate();
 
 private:
     sf::RenderWindow& window_;
     sf::Texture& texture_;
     sf::Sprite sprite_;
-    float x_ = 200.0f, y_ = 200.0f;
+    sf::Vector2f position_;
+    sf::Vector2f velocity_;
     float angle_ = .0f;
+    float radius_ = 20.0f;
 };
 
 #endif

@@ -20,9 +20,13 @@ int main()
                 if (event.key.code == sf::Keyboard::Left) {
                     player.turn_left();
                 }
+                if (event.key.code == sf::Keyboard::Up) {
+                    player.accelerate();
+                }
             }
         }
         window.clear(sf::Color::Black);
+        player.move();
         player.draw();
         window.display();
     }
