@@ -1,6 +1,7 @@
 #include "game.h"
+#include "helper.h"
 
-const int MAX_ENEMIES = 3;
+const int ENEMY_FREQUENCY = 5;
 
 Game::Game()
     : window_{{800, 600}, "Sector Five"}
@@ -12,9 +13,6 @@ Game::Game()
 void Game::initialize()
 {
     window_.setFramerateLimit(60);
-    for (int i = 0; i < MAX_ENEMIES; i++) {
-        enemies_.emplace_front(window_);
-    }
 }
 
 void Game::run()
@@ -66,6 +64,9 @@ void Game::update()
 {
     player_.move();
     for (auto& enemy: enemies_) enemy.move();
+    if (random(0, 100) < ENEMY_FREQUENCY) {
+        enemies_.emplace_front(window_);
+    }
 }
 
 void Game::render()
