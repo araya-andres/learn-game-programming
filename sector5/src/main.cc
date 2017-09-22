@@ -1,3 +1,4 @@
+#include "enemy.h"
 #include "player.h"
 #include <SFML/Graphics.hpp>
 
@@ -6,6 +7,7 @@ int main()
     sf::RenderWindow window{{800, 600}, "Sector Five"};
     window.setFramerateLimit(60);
     Player player(window);
+    Enemy enemy(window);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -25,9 +27,11 @@ int main()
                 }
             }
         }
-        window.clear(sf::Color::Black);
         player.move();
+        enemy.move();
+        window.clear(sf::Color::Black);
         player.draw();
+        enemy.draw();
         window.display();
     }
 }
