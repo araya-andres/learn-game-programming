@@ -39,18 +39,21 @@ void Player::move()
     velocity_ *= FRICTION;
     const auto boundary = window_.getSize();
     if (position_.x < radius_) {
-        velocity_.x = 0;
         position_.x = radius_;
+        velocity_ = rotate_90_degrees(velocity_);
+        angle_ += 270;
     } else if (position_.x > boundary.x - radius_) {
-        velocity_.x = 0;
         position_.x = boundary.x - radius_;
-    }
-    if (position_.y < radius_) {
-        velocity_.y = 0;
+        velocity_ = rotate_90_degrees(velocity_);
+        angle_ += 270;
+    } else if (position_.y < radius_) {
         position_.y = radius_;
+        velocity_ = rotate_90_degrees(velocity_);
+        angle_ += 270;
     } else if (position_.y > boundary.y - radius_) {
-        velocity_.y = 0;
         position_.y = boundary.y - radius_;
+        velocity_ = rotate_90_degrees(velocity_);
+        angle_ += 270;
     }
 }
 
