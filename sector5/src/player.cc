@@ -37,6 +37,21 @@ void Player::move()
 {
     position_ += velocity_;
     velocity_ *= FRICTION;
+    const auto boundary = window_.getSize();
+    if (position_.x < radius_) {
+        velocity_.x = 0;
+        position_.x = radius_;
+    } else if (position_.x > boundary.x - radius_) {
+        velocity_.x = 0;
+        position_.x = boundary.x - radius_;
+    }
+    if (position_.y < radius_) {
+        velocity_.y = 0;
+        position_.y = radius_;
+    } else if (position_.y > boundary.y - radius_) {
+        velocity_.y = 0;
+        position_.y = boundary.y - radius_;
+    }
 }
 
 void Player::accelerate()

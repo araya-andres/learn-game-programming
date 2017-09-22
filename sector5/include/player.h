@@ -18,7 +18,7 @@ private:
     sf::Sprite sprite_;
     sf::Vector2f position_;
     sf::Vector2f velocity_;
-    float angle_ = .0f;
+    float angle_;
     float radius_ = 20.0f;
 };
 
