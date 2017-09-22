@@ -11,7 +11,7 @@ Enemy::Enemy(sf::RenderWindow& w)
     const auto origin = vector2u_to_f(texture_.getSize() / 2u);
     sprite_.setTexture(texture_);
     sprite_.setOrigin(origin);
-    position_ = sf::Vector2f(window_.getSize().x / 2, origin.y);
+    position_ = sf::Vector2f(random(origin.x, window_.getSize().x - origin.x), origin.y);
 }
 
 void Enemy::draw()

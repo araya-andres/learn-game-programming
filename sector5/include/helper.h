@@ -25,4 +25,6 @@ sf::Vector2<T> rotate_90_degrees(const sf::Vector2<T>& v)
     return {v.y, -v.x};
 }
 
+int random(int min, int max);
+
 #endif
