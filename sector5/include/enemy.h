@@ -8,6 +8,7 @@ struct Enemy
     Enemy(sf::RenderWindow&);
     void draw();
     void move();
+    const sf::Vector2f& position() const;
 
 private:
     sf::RenderWindow& window_;

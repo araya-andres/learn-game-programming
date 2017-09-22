@@ -24,3 +24,8 @@ void Enemy::move()
 {
     position_.y += SPEED;
 }
+
+const sf::Vector2f& Enemy::position() const
+{
+    return position_;
+}

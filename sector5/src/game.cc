@@ -63,6 +63,9 @@ void Game::process_key_pressed_event(sf::Keyboard::Key code)
 void Game::update()
 {
     player_.move();
+    enemies_.remove_if([this](const Enemy& e) {
+            return e.position().y > window_.getSize().y;
+            });
     for (auto& enemy: enemies_) enemy.move();
     if (random(0, 100) < ENEMY_FREQUENCY) {
         enemies_.emplace_front(window_);
