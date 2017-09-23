@@ -10,6 +10,8 @@ struct GameEntity
     virtual void draw();
     virtual void move();
     const sf::Vector2f& position() const;
+    const sf::Vector2f& velocity() const;
+    float angle() const;
 
 protected:
     sf::RenderWindow& window_;

@@ -31,3 +31,12 @@ const sf::Vector2f& GameEntity::position() const
 {
     return position_;
 }
+
+const sf::Vector2f& GameEntity::velocity() const
+{
+    return velocity_;
+}
+float GameEntity::angle() const
+{
+    return angle_;
+}
