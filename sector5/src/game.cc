@@ -33,7 +33,7 @@ void Game::process_events()
                 window_.close();
                 break;
             case sf::Event::KeyPressed:
-                process_key_pressed_event(event.key.code);
+                process_key_event(event.key.code);
                 break;
             default:
                 // do nothing
@@ -42,7 +42,7 @@ void Game::process_events()
     }
 }
 
-void Game::process_key_pressed_event(sf::Keyboard::Key code)
+void Game::process_key_event(sf::Keyboard::Key code)
 {
     switch (code) {
         case sf::Keyboard::Right:
@@ -54,6 +54,9 @@ void Game::process_key_pressed_event(sf::Keyboard::Key code)
         case sf::Keyboard::Up:
             player_.accelerate();
             break;
+        case sf::Keyboard::Space:
+            bullets_.emplace_front(window_, player_);
+            break;
         default:
             // do nothing
             break;
@@ -62,11 +65,20 @@ void Game::process_key_pressed_event(sf::Keyboard::Key code)
 
 void Game::update()
 {
+    const sf::FloatRect boundary(.0f, .0f, window_.getSize().x, window_.getSize().y);
     player_.move();
-    enemies_.remove_if([this](const Enemy& e) {
-            return e.position().y > window_.getSize().y;
+    bullets_.remove_if([&boundary](const Bullet& b) {
+            return !boundary.contains(b.position());
             });
-    for (auto& enemy: enemies_) enemy.move();
+    for (auto& b: bullets_) {
+        b.move();
+    }
+    enemies_.remove_if([&boundary](const Enemy& e) {
+            return !boundary.contains(e.position());
+            });
+    for (auto& e: enemies_) {
+        e.move();
+    }
     if (random(0, 100) < ENEMY_FREQUENCY) {
         enemies_.emplace_front(window_);
     }
@@ -76,6 +88,7 @@ void Game::render()
 {
     window_.clear(sf::Color::Black);
     player_.draw();
+    for (auto& bullet: bullets_) bullet.draw();
     for (auto& enemy: enemies_) enemy.draw();
     window_.display();
 }

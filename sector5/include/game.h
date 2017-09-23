@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "bullet.h"
 #include "enemy.h"
 #include "player.h"
 #include <SFML/Graphics.hpp>
@@ -15,13 +16,14 @@ struct Game
 private:
     void initialize();
     void process_events();
-    void process_key_pressed_event(sf::Keyboard::Key code);
+    void process_key_event(sf::Keyboard::Key code);
     void update();
     void render();
 
     sf::RenderWindow window_;
     Player player_;
     std::list<Enemy> enemies_;
+    std::list<Bullet> bullets_;
 };
 
 #endif

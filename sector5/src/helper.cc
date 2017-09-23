@@ -17,5 +17,5 @@ int random(int min, int max)
 sf::Vector2f unit_vector(const float angle)
 {
     const auto radians = M_PI * angle / 180;
-    return sf::Vector2f(-cos(radians), -sin(radians));
+    return sf::Vector2f(cos(radians), sin(radians));
 }

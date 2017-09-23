@@ -1,7 +1,7 @@
 #include "helper.h"
 #include "player.h"
 
-const float ACCELERATION = -2.0f;
+const float ACCELERATION = 2.0f;
 const float FRICTION = 0.9f;
 const float ROTATION_SPEED = 15.0f;
 
