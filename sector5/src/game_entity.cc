@@ -36,7 +36,18 @@ const sf::Vector2f& GameEntity::velocity() const
 {
     return velocity_;
 }
+
 float GameEntity::angle() const
 {
     return angle_;
+}
+
+void GameEntity::mark_for_deletion()
+{
+    mark_for_deletion_ = true;
+}
+
+bool GameEntity::is_marked_for_deletion() const
+{
+    return mark_for_deletion_;
 }

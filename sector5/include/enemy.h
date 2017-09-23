@@ -6,6 +6,8 @@
 struct Enemy : public GameEntity
 {
     Enemy(sf::RenderWindow&);
+
+    static const float RADIUS;
 };
 
 #endif

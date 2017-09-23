@@ -3,6 +3,7 @@
 #include "helper.h"
 
 const float SPEED = 4.0f;
+const float Enemy::RADIUS = 20;
 
 Enemy::Enemy(sf::RenderWindow& w)
     : GameEntity(w, "images/enemy.png")
@@ -11,4 +12,5 @@ Enemy::Enemy(sf::RenderWindow& w)
     position_ = sf::Vector2f(random(origin.x, window_.getSize().x - origin.x), origin.y);
     velocity_ = sf::Vector2f{.0f, SPEED};
     angle_ = 90.0f;
+    radius_ = Enemy::RADIUS;
 }

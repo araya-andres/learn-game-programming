@@ -11,6 +11,8 @@ struct Player : public GameEntity
     void turn_left();
     void accelerate();
     void bounce();
+
+    static const float RADIUS;
 };
 
 #endif

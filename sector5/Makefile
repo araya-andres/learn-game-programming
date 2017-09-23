@@ -16,7 +16,7 @@ enemy.o: entitity_game.h
 
 entitity_game: asset_manager.h helper.h
 
-game.o: bullet.h enemy.h player.h
+game.o: bullet.h helper.h enemy.h player.h
 
 player.o: entitity_game.h
 

@@ -6,6 +6,8 @@
 struct Bullet : public GameEntity
 {
     Bullet(sf::RenderWindow&, const GameEntity&);
+
+    static const float RADIUS;
 };
 
 #endif

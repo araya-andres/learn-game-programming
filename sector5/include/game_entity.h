@@ -12,6 +12,8 @@ struct GameEntity
     const sf::Vector2f& position() const;
     const sf::Vector2f& velocity() const;
     float angle() const;
+    void mark_for_deletion();
+    bool is_marked_for_deletion() const;
 
 protected:
     sf::RenderWindow& window_;
@@ -22,6 +24,7 @@ protected:
     sf::Vector2f acceleration_;
     float angle_ = 0;
     float radius_ = 0;
+    bool mark_for_deletion_ = false;
 };
 
 #endif

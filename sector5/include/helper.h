@@ -39,6 +39,12 @@ sf::Vector3<T> cross_product(const sf::Vector2<T>& a, const sf::Vector2<T>& b)
 
 sf::Vector2f unit_vector(const float angle);
 
+template<typename T>
+T squared_distance(const sf::Vector2<T>& a, const sf::Vector2<T>& b)
+{
+    return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
+}
+
 int random(int min, int max);
 
 #endif

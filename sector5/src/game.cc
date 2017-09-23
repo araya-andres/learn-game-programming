@@ -65,20 +65,34 @@ void Game::process_key_event(sf::Keyboard::Key code)
 
 void Game::update()
 {
-    const sf::FloatRect boundary(.0f, .0f, window_.getSize().x, window_.getSize().y);
     player_.move();
+
+    const auto dist = (Enemy::RADIUS + Bullet::RADIUS) * (Enemy::RADIUS + Bullet::RADIUS);
+    for (auto& e: enemies_) {
+        for (auto& b: bullets_) {
+            if (squared_distance(e.position(), b.position()) < dist) {
+                e.mark_for_deletion();
+                b.mark_for_deletion();
+                continue;
+            }
+        }
+    }
+
+    const sf::FloatRect boundary(.0f, .0f, window_.getSize().x, window_.getSize().y);
     bullets_.remove_if([&boundary](const Bullet& b) {
-            return !boundary.contains(b.position());
+            return b.is_marked_for_deletion() || !boundary.contains(b.position());
             });
     for (auto& b: bullets_) {
         b.move();
     }
+
     enemies_.remove_if([&boundary](const Enemy& e) {
-            return !boundary.contains(e.position());
+            return e.is_marked_for_deletion() || !boundary.contains(e.position());
             });
     for (auto& e: enemies_) {
         e.move();
     }
+
     if (random(0, 100) < ENEMY_FREQUENCY) {
         enemies_.emplace_front(window_);
     }
