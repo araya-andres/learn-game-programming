@@ -10,6 +10,7 @@ struct Player : public GameEntity
     void turn_right();
     void turn_left();
     void accelerate();
+    void bounce();
 };
 
 #endif

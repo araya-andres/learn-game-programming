@@ -10,4 +10,5 @@ Enemy::Enemy(sf::RenderWindow& w)
     const auto origin = sprite_.getOrigin();
     position_ = sf::Vector2f(random(origin.x, window_.getSize().x - origin.x), origin.y);
     velocity_ = sf::Vector2f{.0f, SPEED};
+    angle_ = 90.0f;
 }

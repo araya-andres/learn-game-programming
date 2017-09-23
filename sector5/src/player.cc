@@ -1,15 +1,15 @@
 #include "helper.h"
 #include "player.h"
-#include <cmath>
 
-const float ACCELERATION = 2.0f;
-const float FRICTION = 0.99f;
-const float ROTATION_SPEED = 3.0f;
+const float ACCELERATION = -2.0f;
+const float FRICTION = 0.9f;
+const float ROTATION_SPEED = 15.0f;
 
 Player::Player(sf::RenderWindow& w)
     : GameEntity(w, "images/ship.png")
 {
     position_ = vector2u_to_f(window_.getSize() / 2u);
+    angle_ = -90.0f;
 }
 
 void Player::turn_right()
@@ -29,25 +29,31 @@ void Player::move()
     const auto boundary = window_.getSize();
     if (position_.x < radius_) {
         position_.x = radius_;
-        velocity_ = rotate_90_degrees(velocity_);
-        angle_ += 270;
+        bounce();
     } else if (position_.x > boundary.x - radius_) {
         position_.x = boundary.x - radius_;
-        velocity_ = rotate_90_degrees(velocity_);
-        angle_ += 270;
+        bounce();
     } else if (position_.y < radius_) {
         position_.y = radius_;
-        velocity_ = rotate_90_degrees(velocity_);
-        angle_ += 270;
+        bounce();
     } else if (position_.y > boundary.y - radius_) {
         position_.y = boundary.y - radius_;
-        velocity_ = rotate_90_degrees(velocity_);
-        angle_ += 270;
+        bounce();
     }
 }
 
 void Player::accelerate()
 {
-    const auto radians = M_PI * angle_ / 180;
-    velocity_ += ACCELERATION * sf::Vector2f(sin(radians), -cos(radians));
+    velocity_ += ACCELERATION * unit_vector(angle_);
+}
+
+void Player::bounce()
+{
+    const auto new_velocity = rotate_90_degrees(velocity_);
+    if (cross_product(velocity_, new_velocity).z > .0f) {
+        angle_ += 90.0f;
+    } else {
+        angle_ -= 90.0f;
+    }
+    velocity_ = new_velocity;
 }

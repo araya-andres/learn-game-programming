@@ -1,5 +1,6 @@
 #include "helper.h"
 #include <cassert>
+#include <cmath>
 #include <cstdlib>
 
 sf::Vector2f vector2u_to_f(const sf::Vector2u& v)
@@ -11,4 +12,10 @@ int random(int min, int max)
 {
     assert(min < max);
     return rand() % (max - min) + min;
+}
+
+sf::Vector2f unit_vector(const float angle)
+{
+    const auto radians = M_PI * angle / 180;
+    return sf::Vector2f(-cos(radians), -sin(radians));
 }
