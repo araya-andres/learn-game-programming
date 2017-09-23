@@ -1,25 +1,15 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <SFML/Graphics.hpp>
+#include "game_entity.h"
 
-struct Player
+struct Player : public GameEntity
 {
     Player(sf::RenderWindow&);
-    void draw();
+    void move() override;
     void turn_right();
     void turn_left();
-    void move();
     void accelerate();
-
-private:
-    sf::RenderWindow& window_;
-    sf::Texture& texture_;
-    sf::Sprite sprite_;
-    sf::Vector2f position_;
-    sf::Vector2f velocity_;
-    float angle_;
-    float radius_ = 20.0f;
 };
 
 #endif

@@ -5,27 +5,9 @@
 const float SPEED = 4.0f;
 
 Enemy::Enemy(sf::RenderWindow& w)
-    : window_(w)
-    , texture_(AssetManager::getTexture("images/enemy.png"))
+    : GameEntity(w, "images/enemy.png")
 {
-    const auto origin = vector2u_to_f(texture_.getSize() / 2u);
-    sprite_.setTexture(texture_);
-    sprite_.setOrigin(origin);
+    const auto origin = sprite_.getOrigin();
     position_ = sf::Vector2f(random(origin.x, window_.getSize().x - origin.x), origin.y);
-}
-
-void Enemy::draw()
-{
-    sprite_.setPosition(position_);
-    window_.draw(sprite_);
-}
-
-void Enemy::move()
-{
-    position_.y += SPEED;
-}
-
-const sf::Vector2f& Enemy::position() const
-{
-    return position_;
+    velocity_ = sf::Vector2f{.0f, SPEED};
 }

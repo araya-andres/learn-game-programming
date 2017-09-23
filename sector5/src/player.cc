@@ -1,4 +1,3 @@
-#include "asset_manager.h"
 #include "helper.h"
 #include "player.h"
 #include <cmath>
@@ -8,19 +7,9 @@ const float FRICTION = 0.99f;
 const float ROTATION_SPEED = 3.0f;
 
 Player::Player(sf::RenderWindow& w)
-    : window_(w)
-    , texture_(AssetManager::getTexture("images/ship.png"))
+    : GameEntity(w, "images/ship.png")
 {
-    sprite_.setTexture(texture_);
-    sprite_.setOrigin(vector2u_to_f(texture_.getSize() / 2u));
     position_ = vector2u_to_f(window_.getSize() / 2u);
-}
-
-void Player::draw()
-{
-    sprite_.setRotation(angle_);
-    sprite_.setPosition(position_);
-    window_.draw(sprite_);
 }
 
 void Player::turn_right()

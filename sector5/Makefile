@@ -10,5 +10,11 @@ OBJS=$(patsubst %.cc, %.o, $(wildcard src/*.cc))
 $(TARGET): $(OBJS)
 	$(CXX) $(LDFLAGS) -o $(TARGET) $(OBJS) $(LDLIBS)
 
+enemy.o: entitity_game.c entitity_game.h
+
+game.o: player.c player.h enemy.c enemy.h
+
+player.o: entitity_game.c entitity_game.h
+
 clean:
 	rm $(TARGET) $(OBJS)
