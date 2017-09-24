@@ -24,7 +24,7 @@ void Player::turn_left()
     angle_ -= ROTATION_SPEED;
 }
 
-void Player::move()
+void Player::update()
 {
     position_ += velocity_;
     velocity_ *= FRICTION;

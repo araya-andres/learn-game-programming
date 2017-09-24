@@ -8,12 +8,12 @@ struct GameEntity
     GameEntity(sf::RenderWindow&, const std::string&);
     virtual ~GameEntity();
     virtual void draw();
-    virtual void move();
+    virtual void update();
+    void mark_for_deletion();
     const sf::Vector2f& position() const;
     const sf::Vector2f& velocity() const;
     float angle() const;
-    void mark_for_deletion();
-    virtual bool is_marked_for_deletion() const;
+    bool is_marked_for_deletion() const;
 
 protected:
     sf::RenderWindow& window_;

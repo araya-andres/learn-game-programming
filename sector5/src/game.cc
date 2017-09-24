@@ -65,7 +65,7 @@ void Game::process_key_event(sf::Keyboard::Key code)
 
 void Game::update()
 {
-    player_.move();
+    player_.update();
 
     const auto min_squared_distance = (Enemy::RADIUS + Bullet::RADIUS) * (Enemy::RADIUS + Bullet::RADIUS);
     for (auto& e: enemies_) {
@@ -79,24 +79,21 @@ void Game::update()
         }
     }
 
-    const sf::FloatRect boundary(.0f, .0f, window_.getSize().x, window_.getSize().y);
-    auto is_marked_for_deletion_or_out_of_the_screen = [&boundary](const GameEntity& e) {
-            return e.is_marked_for_deletion() || !boundary.contains(e.position());
-    };
-    bullets_.remove_if(is_marked_for_deletion_or_out_of_the_screen);
+    auto is_marked_for_deletion = [](const GameEntity& e) { return e.is_marked_for_deletion(); };
     for (auto& b: bullets_) {
-        b.move();
+        b.update();
     }
+    bullets_.remove_if(is_marked_for_deletion);
 
-    enemies_.remove_if(is_marked_for_deletion_or_out_of_the_screen);
     for (auto& e: enemies_) {
-        e.move();
+        e.update();
     }
+    enemies_.remove_if(is_marked_for_deletion);
 
-    explosions_.remove_if(is_marked_for_deletion_or_out_of_the_screen);
     for (auto& e: explosions_) {
         e.update();
     }
+    explosions_.remove_if(is_marked_for_deletion);
 
     if (random(0, 100) < ENEMY_FREQUENCY) {
         enemies_.emplace_front(window_);

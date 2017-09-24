@@ -6,7 +6,7 @@
 struct Player : public GameEntity
 {
     Player(sf::RenderWindow&);
-    void move() override;
+    void update() override;
     void turn_right();
     void turn_left();
     void accelerate();

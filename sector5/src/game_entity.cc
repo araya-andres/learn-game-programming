@@ -21,10 +21,19 @@ void GameEntity::draw()
     window_.draw(sprite_);
 }
 
-void GameEntity::move()
+void GameEntity::update()
 {
     velocity_ += acceleration_;
     position_ += velocity_;
+    if (!mark_for_deletion_) {
+        const sf::FloatRect boundary{{}, vector2u_to_f(window_.getSize())};
+        mark_for_deletion_ = !boundary.contains(position_);
+    }
+}
+
+void GameEntity::mark_for_deletion()
+{
+    mark_for_deletion_ = true;
 }
 
 const sf::Vector2f& GameEntity::position() const
@@ -40,11 +49,6 @@ const sf::Vector2f& GameEntity::velocity() const
 float GameEntity::angle() const
 {
     return angle_;
-}
-
-void GameEntity::mark_for_deletion()
-{
-    mark_for_deletion_ = true;
 }
 
 bool GameEntity::is_marked_for_deletion() const
