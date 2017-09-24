@@ -6,7 +6,7 @@ const float SPEED = 4.0f;
 const float Enemy::RADIUS = 20;
 
 Enemy::Enemy(sf::RenderWindow& w)
-    : GameEntity(w, "images/enemy.png")
+    : GameEntity{w, "images/enemy.png"}
 {
     const auto origin = sprite_.getOrigin();
     position_ = sf::Vector2f(random(origin.x, window_.getSize().x - origin.x), origin.y);

@@ -13,7 +13,7 @@ struct GameEntity
     const sf::Vector2f& velocity() const;
     float angle() const;
     void mark_for_deletion();
-    bool is_marked_for_deletion() const;
+    virtual bool is_marked_for_deletion() const;
 
 protected:
     sf::RenderWindow& window_;

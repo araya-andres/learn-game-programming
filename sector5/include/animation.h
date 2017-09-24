@@ -1,28 +1,26 @@
 #ifndef ANIMATION_H
 #define ANIMATION_H
 
+#include "game_entity.h"
 #include <string>
 #include <vector>
-#include <SFML/Graphics.hpp>
 
-struct Animation
+struct Animation : public GameEntity
 {
     Animation(
+            sf::RenderWindow&,
             const std::string& texture,
-            const sf::Time& duration,
-            bool looping = true)
-        : texture_(texture)
-        , duration_(duration)
-        , looping_(looping)
-    {}
+            bool looping = true);
 
-    Animation& addFrames(
-            const sf::Vector2i& startFrom,
-            const sf::Vector2i& frameSize,
+    void add_frames(
+            const sf::Vector2i& start_from,
+            const sf::Vector2i& frame_size,
             unsigned frames);
 
-    std::string texture_;
-    sf::Time duration_;
+    void update();
+
+private:
+    int frame_index_ = 0;
     bool looping_;
     std::vector<sf::IntRect> frames_;
 };

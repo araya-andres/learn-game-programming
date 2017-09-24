@@ -3,6 +3,7 @@
 
 #include "bullet.h"
 #include "enemy.h"
+#include "explosion.h"
 #include "player.h"
 #include <SFML/Graphics.hpp>
 #include <list>
@@ -24,6 +25,7 @@ private:
     Player player_;
     std::list<Enemy> enemies_;
     std::list<Bullet> bullets_;
+    std::list<Explosion> explosions_;
 };
 
 #endif

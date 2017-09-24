@@ -67,30 +67,35 @@ void Game::update()
 {
     player_.move();
 
-    const auto dist = (Enemy::RADIUS + Bullet::RADIUS) * (Enemy::RADIUS + Bullet::RADIUS);
+    const auto min_squared_distance = (Enemy::RADIUS + Bullet::RADIUS) * (Enemy::RADIUS + Bullet::RADIUS);
     for (auto& e: enemies_) {
         for (auto& b: bullets_) {
-            if (squared_distance(e.position(), b.position()) < dist) {
+            if (squared_distance(e.position(), b.position()) < min_squared_distance) {
                 e.mark_for_deletion();
                 b.mark_for_deletion();
+                explosions_.emplace_front(window_, e.position());
                 continue;
             }
         }
     }
 
     const sf::FloatRect boundary(.0f, .0f, window_.getSize().x, window_.getSize().y);
-    bullets_.remove_if([&boundary](const Bullet& b) {
-            return b.is_marked_for_deletion() || !boundary.contains(b.position());
-            });
+    auto is_marked_for_deletion_or_out_of_the_screen = [&boundary](const GameEntity& e) {
+            return e.is_marked_for_deletion() || !boundary.contains(e.position());
+    };
+    bullets_.remove_if(is_marked_for_deletion_or_out_of_the_screen);
     for (auto& b: bullets_) {
         b.move();
     }
 
-    enemies_.remove_if([&boundary](const Enemy& e) {
-            return e.is_marked_for_deletion() || !boundary.contains(e.position());
-            });
+    enemies_.remove_if(is_marked_for_deletion_or_out_of_the_screen);
     for (auto& e: enemies_) {
         e.move();
+    }
+
+    explosions_.remove_if(is_marked_for_deletion_or_out_of_the_screen);
+    for (auto& e: explosions_) {
+        e.update();
     }
 
     if (random(0, 100) < ENEMY_FREQUENCY) {
@@ -102,7 +107,14 @@ void Game::render()
 {
     window_.clear(sf::Color::Black);
     player_.draw();
-    for (auto& bullet: bullets_) bullet.draw();
-    for (auto& enemy: enemies_) enemy.draw();
+    for (auto& bullet: bullets_) {
+        bullet.draw();
+    }
+    for (auto& enemy: enemies_) {
+        enemy.draw();
+    }
+    for (auto& explosion: explosions_) {
+        explosion.draw();
+    }
     window_.display();
 }

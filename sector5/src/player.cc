@@ -7,7 +7,7 @@ const float ROTATION_SPEED = 15.0f;
 const float Player::RADIUS = 20;
 
 Player::Player(sf::RenderWindow& w)
-    : GameEntity(w, "images/ship.png")
+    : GameEntity{w, "images/ship.png"}
 {
     position_ = vector2u_to_f(window_.getSize() / 2u);
     angle_ = -90.0f;

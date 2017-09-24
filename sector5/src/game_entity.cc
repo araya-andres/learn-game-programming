@@ -3,8 +3,8 @@
 #include "helper.h"
 
 GameEntity::GameEntity(sf::RenderWindow& w, const std::string& fname)
-    : window_(w)
-    , texture_(AssetManager::getTexture(fname))
+    : window_{w}
+    , texture_{AssetManager::getTexture(fname)}
 {
     sprite_.setTexture(texture_);
     sprite_.setOrigin(vector2u_to_f(texture_.getSize() / 2u));
