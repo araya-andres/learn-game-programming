@@ -4,13 +4,13 @@
 const float ACCELERATION = 2.0f;
 const float FRICTION = 0.9f;
 const float ROTATION_SPEED = 15.0f;
-const float Player::RADIUS = 20;
+const float Player::RADIUS = 20.0f;
 
 Player::Player(sf::RenderWindow& w)
     : GameEntity{w, "images/ship.png"}
 {
     position_ = vector2u_to_f(window_.getSize() / 2u);
-    angle_ = -90.0f;
+    angle_ = 270.0f;
     radius_ = Player::RADIUS;
 }
 
@@ -51,11 +51,12 @@ void Player::accelerate()
 
 void Player::bounce()
 {
-    const auto new_velocity = rotate_90_degrees(velocity_);
-    if (cross_product(velocity_, new_velocity).z > .0f) {
+    const auto towards_center = vector2u_to_f(window_.getSize() / 2u) - position_;
+    if (cross_product(velocity_, towards_center).z > .0f) {
+        velocity_ = rotate_90_degrees_counterclockwise(velocity_);
         angle_ += 90.0f;
     } else {
+        velocity_ = rotate_90_degrees_clockwise(velocity_);
         angle_ -= 90.0f;
     }
-    velocity_ = new_velocity;
 }

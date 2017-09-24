@@ -20,9 +20,15 @@ std::ostream& operator<<(std::ostream& os, const sf::Rect<T>& r)
 sf::Vector2f vector2u_to_f(const sf::Vector2u&);
 
 template<typename T>
-sf::Vector2<T> rotate_90_degrees(const sf::Vector2<T>& v)
+sf::Vector2<T> rotate_90_degrees_clockwise(const sf::Vector2<T>& v)
 {
     return {v.y, -v.x};
+}
+
+template<typename T>
+sf::Vector2<T> rotate_90_degrees_counterclockwise(const sf::Vector2<T>& v)
+{
+    return {-v.y, v.x};
 }
 
 template<typename T>
