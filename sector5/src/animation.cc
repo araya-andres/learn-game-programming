@@ -23,6 +23,7 @@ void Animation::add_frames(
 
 void Animation::update()
 {
+    GameEntity::update();
     const auto frames = frames_.size();
     assert(frames > 0);
     if (looping_) {

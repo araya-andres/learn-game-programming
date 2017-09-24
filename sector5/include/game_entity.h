@@ -1,6 +1,8 @@
 #ifndef GAME_ENTITY_H
 #define GAME_ENTITY_H
 
+#include "asset_manager.h"
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
 struct GameEntity
@@ -13,7 +15,7 @@ struct GameEntity
     const sf::Vector2f& position() const;
     const sf::Vector2f& velocity() const;
     float angle() const;
-    bool is_marked_for_deletion() const;
+    virtual bool is_marked_for_deletion() const;
 
 protected:
     sf::RenderWindow& window_;

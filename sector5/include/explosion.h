@@ -2,10 +2,13 @@
 #define EXPLOSION_H
 
 #include "animation.h"
-#include <SFML/System.hpp>
 
 struct Explosion : public Animation {
-    Explosion(sf::RenderWindow&, const sf::Vector2f&);
+    Explosion(sf::RenderWindow&, const GameEntity&);
+    virtual bool is_marked_for_deletion() const override;
+
+private:
+    sf::Sound explosion_;
 };
 
 #endif

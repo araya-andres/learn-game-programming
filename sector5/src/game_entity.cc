@@ -1,4 +1,3 @@
-#include "asset_manager.h"
 #include "game_entity.h"
 #include "helper.h"
 
@@ -25,10 +24,6 @@ void GameEntity::update()
 {
     velocity_ += acceleration_;
     position_ += velocity_;
-    if (!mark_for_deletion_) {
-        const sf::FloatRect boundary{{}, vector2u_to_f(window_.getSize())};
-        mark_for_deletion_ = !boundary.contains(position_);
-    }
 }
 
 void GameEntity::mark_for_deletion()
@@ -53,5 +48,9 @@ float GameEntity::angle() const
 
 bool GameEntity::is_marked_for_deletion() const
 {
-    return mark_for_deletion_;
+    if (mark_for_deletion_) {
+        return true;
+    }
+    const sf::FloatRect boundary{{}, vector2u_to_f(window_.getSize())};
+    return !boundary.contains(position_);
 }

@@ -1,6 +1,6 @@
 UNAME=$(shell uname)
 CXXFLAGS=-std=c++1z -Wall -pedantic -g -I include
-LDLIBS=-lsfml-graphics -lsfml-window -lsfml-system
+LDLIBS=-lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
 ifeq ($(UNAME),Darwin))
 	LDLIBS+=-framework GLUT -framework OpenGL -framework Cocoa
 endif

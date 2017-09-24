@@ -1,3 +1,4 @@
+#include "asset_manager.h"
 #include "game.h"
 #include "helper.h"
 
@@ -73,7 +74,7 @@ void Game::update()
             if (squared_distance(e.position(), b.position()) < min_squared_distance) {
                 e.mark_for_deletion();
                 b.mark_for_deletion();
-                explosions_.emplace_front(window_, e.position());
+                explosions_.emplace_front(window_, e);
                 continue;
             }
         }

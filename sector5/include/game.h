@@ -5,7 +5,6 @@
 #include "enemy.h"
 #include "explosion.h"
 #include "player.h"
-#include <SFML/Graphics.hpp>
 #include <list>
 
 struct Game
