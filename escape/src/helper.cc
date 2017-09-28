@@ -19,3 +19,8 @@ sf::Vector2f unit_vector(const float angle)
     const auto radians = M_PI * angle / 180;
     return sf::Vector2f(cos(radians), sin(radians));
 }
+
+sf::Vector2f cp_to_sf(const cp::Vect& v)
+{
+    return sf::Vector2f(v.x, v.y);
+}

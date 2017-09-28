@@ -1,19 +1,23 @@
 #ifndef CHIPMUNK_HPP
 #define CHIPMUNK_HPP
 
+#include "chipmunk.h"
 #include <functional>
 #include <memory>
-#include "chipmunk.h"
+#include <vector>
 
 namespace cp
 {
     using BB = cpBB;
+    using Inertia = float;
+    using Mass = float;
     using Position = cpVect;
+    using Transform = cpTransform;
     using Vect = cpVect;
 
     struct Body
     {
-        Body(double mass = .0, double inertia = .0) : Body{cpBodyNew(mass, inertia)} {}
+        Body(Mass m = .0, Inertia i = .0) : Body{cpBodyNew(m, i)} {}
         Body(cpBody* body) : body{body, cpBodyFree} {}
         operator cpBody*() { return body.get(); }
 
@@ -23,9 +27,11 @@ namespace cp
         void       setForce(const cpVect& value) { cpBodySetForce(*this, value); }
         void       setMass(double m) { cpBodySetMass(*this, m); }
         void       setMoment(double i) { cpBodySetMoment(*this, i); }
+        void       setPosition(double x, double y) { setPosition({x, y}); }
         void       setPosition(const Position& p) { cpBodySetPosition(*this, p); }
         void       setTorque(double value) { cpBodySetTorque(*this, value); }
         void       setType(cpBodyType type) { cpBodySetType(*this, type); }
+        void       setVelocity(double vx, double vy) { setVelocity({vx, vy}); }
         void       setVelocity(const Vect& value) { cpBodySetVelocity(*this, value); }
 
         double     getAngle() { return cpBodyGetAngle(*this); }
@@ -83,6 +89,13 @@ namespace cp
     {
         Segment(Body& body, const Vect& a, const Vect& b, double radius = .0)
             : Shape{cpSegmentShapeNew(body, a, b, radius)}
+        {}
+    };
+
+    struct Polygon : public Shape
+    {
+        Polygon(Body& body, const std::vector<Vect> verts, Transform transform = {}, double radius = .0)
+            : Shape{cpPolyShapeNew(body, verts.size(), verts.data(), transform, radius)}
         {}
     };
 

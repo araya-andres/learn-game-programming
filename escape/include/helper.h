@@ -1,6 +1,7 @@
 #ifndef HELPER_H
 #define HELPER_H
 
+#include "chipmunk.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <iostream>
@@ -52,5 +53,7 @@ T squared_distance(const sf::Vector2<T>& a, const sf::Vector2<T>& b)
 }
 
 int random(int min, int max);
+
+sf::Vector2f cp_to_sf(const cp::Vect& v);
 
 #endif
