@@ -1,4 +1,5 @@
 .*
 *.o
 sector5/sector5
+escape/escape
 chipmunk-wrapper/app
