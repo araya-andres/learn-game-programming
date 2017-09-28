@@ -4,16 +4,21 @@
 
 enum
 {
-    WIDTH = 800,
-    HEIGHT = 800,
     FRAMERATE = 60,
+    GRAVITY = 400,
+    HEIGHT = 800,
+    WIDTH = 800,
 };
+
+const double DAMPING = .9;
 
 Game::Game()
     : window_{{WIDTH, HEIGHT}, "Escape"}
     , player_{window_}
 {
     window_.setFramerateLimit(FRAMERATE);
+    space_.SetDamping(DAMPING);
+    space_.SetGravity({.0, GRAVITY});
     auto& texture = AssetManager::get<sf::Texture>("images/background.png");
     texture.setRepeated(true);
     background_.setTexture(texture);

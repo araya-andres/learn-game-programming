@@ -63,7 +63,7 @@ namespace cp
         void   SetSensor(bool value) { cpShapeSetSensor(*this, value); }
 
         BB     GetBoundingBox() { return cpShapeGetBB(*this); }
-        float  GetCollisionType() { cpShapeGetCollisionType(*this); }
+        float  GetCollisionType() { return cpShapeGetCollisionType(*this); }
         float  GetElasticity() { return cpShapeGetElasticity(*this); }
         double GetFriction() { return cpShapeGetFriction(*this); }
         bool   GetSensor() { return cpShapeGetSensor(*this); }
@@ -98,10 +98,15 @@ namespace cp
         void Add(Body& body) { cpSpaceAddBody(*this, body); }
         void Add(Constraint& constraint) { cpSpaceAddConstraint(*this, constraint); }
         void Add(Shape& shape) { cpSpaceAddShape(*this, shape); }
+
+        void SetDamping(double value) { cpSpaceSetDamping(*this, value); }
         void SetGravity(const Vect& value) { cpSpaceSetGravity(*this, value); }
+
+        double GetDamping() { return cpSpaceGetDamping(*this); }
         Vect GetGravity() { return cpSpaceGetGravity(*this); }
         Body& GetStaticBody() { return staticBody; }
-        void Step(double dt) { cpSpaceStep(*this, dt); }
+        void Step(double dt) { return cpSpaceStep(*this, dt); }
+
     private:
         std::unique_ptr<cpSpace, std::function<void(cpSpace*)>> space;
         Body staticBody;

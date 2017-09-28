@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "chipmunk.hpp"
 #include "player.h"
 #include <list>
 
@@ -20,6 +21,7 @@ private:
 
     sf::RenderWindow window_;
     Player player_;
+    cp::Space space_;
     sf::Sprite background_;
 };
 
