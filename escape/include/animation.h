@@ -20,7 +20,7 @@ protected:
             unsigned frames);
 
 private:
-    int frame_index_ = 0;
+    unsigned frame_index_ = 0;
     bool looping_;
     std::vector<sf::IntRect> frames_;
 };
