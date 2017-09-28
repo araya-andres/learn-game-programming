@@ -13,7 +13,6 @@ struct Game
 private:
     Game();
 
-    void initialize();
     void process_events();
     void process_key_event(sf::Keyboard::Key code);
     void update();
@@ -21,6 +20,7 @@ private:
 
     sf::RenderWindow window_;
     Player player_;
+    sf::Sprite background_;
 };
 
 #endif

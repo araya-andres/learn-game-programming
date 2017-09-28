@@ -2,16 +2,22 @@
 #include "game.h"
 #include "helper.h"
 
+enum
+{
+    WIDTH = 800,
+    HEIGHT = 800,
+    FRAMERATE = 60,
+};
+
 Game::Game()
-    : window_{{800, 600}, "Escape"}
+    : window_{{WIDTH, HEIGHT}, "Escape"}
     , player_{window_}
 {
-    initialize();
-}
-
-void Game::initialize()
-{
-    window_.setFramerateLimit(60);
+    window_.setFramerateLimit(FRAMERATE);
+    auto& texture = AssetManager::get<sf::Texture>("images/background.png");
+    texture.setRepeated(true);
+    background_.setTexture(texture);
+    background_.setTextureRect({0, 0, WIDTH, HEIGHT});
 }
 
 Game& Game::instance()
@@ -72,6 +78,7 @@ void Game::update()
 void Game::render()
 {
     window_.clear(sf::Color::Black);
-    player_.draw();
+    window_.draw(background_);
+    /* player_.draw(); */
     window_.display();
 }
