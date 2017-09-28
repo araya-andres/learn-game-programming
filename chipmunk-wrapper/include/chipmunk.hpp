@@ -17,28 +17,28 @@ namespace cp
         Body(cpBody* body) : body{body, cpBodyFree} {}
         operator cpBody*() { return body.get(); }
 
-        void       SetAngle(double a) { cpBodySetAngle(*this, a); }
-        void       SetAngularVelocity(double value) { cpBodySetAngularVelocity(*this, value); }
-        void       SetCenterOfGravity(const Vect& cog) { cpBodySetCenterOfGravity(*this, cog); }
-        void       SetForce(const cpVect& value) { cpBodySetForce(*this, value); }
-        void       SetMass(double m) { cpBodySetMass(*this, m); }
-        void       SetMoment(double i) { cpBodySetMoment(*this, i); }
-        void       SetPosition(const Position& p) { cpBodySetPosition(*this, p); }
-        void       SetTorque(double value) { cpBodySetTorque(*this, value); }
-        void       SetType(cpBodyType type) { cpBodySetType(*this, type); }
-        void       SetVelocity(const Vect& value) { cpBodySetVelocity(*this, value); }
+        void       setAngle(double a) { cpBodySetAngle(*this, a); }
+        void       setAngularVelocity(double value) { cpBodySetAngularVelocity(*this, value); }
+        void       setCenterOfGravity(const Vect& cog) { cpBodySetCenterOfGravity(*this, cog); }
+        void       setForce(const cpVect& value) { cpBodySetForce(*this, value); }
+        void       setMass(double m) { cpBodySetMass(*this, m); }
+        void       setMoment(double i) { cpBodySetMoment(*this, i); }
+        void       setPosition(const Position& p) { cpBodySetPosition(*this, p); }
+        void       setTorque(double value) { cpBodySetTorque(*this, value); }
+        void       setType(cpBodyType type) { cpBodySetType(*this, type); }
+        void       setVelocity(const Vect& value) { cpBodySetVelocity(*this, value); }
 
-        double     GetAngle() { return cpBodyGetAngle(*this); }
-        double     GetAngularVelocity() { return cpBodyGetAngularVelocity(*this); }
-        Vect       GetCenterOfGravity() { return cpBodyGetCenterOfGravity(*this); }
-        Vect       GetForce() { return cpBodyGetForce(*this); }
-        double     GetMass() { return cpBodyGetMass(*this); }
-        double     GetMoment() { return cpBodyGetMoment(*this); }
-        Position   GetPosition() { return cpBodyGetPosition(*this); }
-        Vect       GetRotation() { return cpBodyGetRotation(*this); }
-        double     GetTorque() { return cpBodyGetTorque(*this); }
-        cpBodyType GetType() { return cpBodyGetType(*this); }
-        Vect       GetVelocity() { return cpBodyGetVelocity(*this); }
+        double     getAngle() { return cpBodyGetAngle(*this); }
+        double     getAngularVelocity() { return cpBodyGetAngularVelocity(*this); }
+        Vect       getCenterOfGravity() { return cpBodyGetCenterOfGravity(*this); }
+        Vect       getForce() { return cpBodyGetForce(*this); }
+        double     getMass() { return cpBodyGetMass(*this); }
+        double     getMoment() { return cpBodyGetMoment(*this); }
+        Position   getPosition() { return cpBodyGetPosition(*this); }
+        Vect       getRotation() { return cpBodyGetRotation(*this); }
+        double     getTorque() { return cpBodyGetTorque(*this); }
+        cpBodyType getType() { return cpBodyGetType(*this); }
+        Vect       getVelocity() { return cpBodyGetVelocity(*this); }
 
     private:
         std::unique_ptr<cpBody, std::function<void(cpBody*)>> body;
@@ -57,16 +57,16 @@ namespace cp
         Shape(cpShape* shape) : shape{shape, cpShapeFree} {}
         operator cpShape*() { return shape.get(); }
 
-        void   SetCollisionType(float value) { cpShapeSetCollisionType(*this, value); }
-        void   SetElasticity(float value) { cpShapeSetElasticity(*this, value); }
-        void   SetFriction(double value) { cpShapeSetFriction(*this, value); }
-        void   SetSensor(bool value) { cpShapeSetSensor(*this, value); }
+        void   setCollisionType(float value) { cpShapeSetCollisionType(*this, value); }
+        void   setElasticity(float value) { cpShapeSetElasticity(*this, value); }
+        void   setFriction(double value) { cpShapeSetFriction(*this, value); }
+        void   setSensor(bool value) { cpShapeSetSensor(*this, value); }
 
-        BB     GetBoundingBox() { return cpShapeGetBB(*this); }
-        float  GetCollisionType() { return cpShapeGetCollisionType(*this); }
-        float  GetElasticity() { return cpShapeGetElasticity(*this); }
-        double GetFriction() { return cpShapeGetFriction(*this); }
-        bool   GetSensor() { return cpShapeGetSensor(*this); }
+        BB     getBoundingBox() { return cpShapeGetBB(*this); }
+        float  getCollisionType() { return cpShapeGetCollisionType(*this); }
+        float  getElasticity() { return cpShapeGetElasticity(*this); }
+        double getFriction() { return cpShapeGetFriction(*this); }
+        bool   getSensor() { return cpShapeGetSensor(*this); }
 
     private:
         std::unique_ptr<cpShape, std::function<void(cpShape*)>> shape;
@@ -92,20 +92,21 @@ namespace cp
             : space{cpSpaceNew(), cpSpaceFree}
             , staticBody{cpBodyNewStatic()}
         {
-            Add(staticBody);
+            add(staticBody);
         }
         operator cpSpace*() { return space.get(); }
-        void Add(Body& body) { cpSpaceAddBody(*this, body); }
-        void Add(Constraint& constraint) { cpSpaceAddConstraint(*this, constraint); }
-        void Add(Shape& shape) { cpSpaceAddShape(*this, shape); }
+        void   add(Body& body) { cpSpaceAddBody(*this, body); }
+        void   add(Constraint& constraint) { cpSpaceAddConstraint(*this, constraint); }
+        void   add(Shape& shape) { cpSpaceAddShape(*this, shape); }
 
-        void SetDamping(double value) { cpSpaceSetDamping(*this, value); }
-        void SetGravity(const Vect& value) { cpSpaceSetGravity(*this, value); }
+        void   setDamping(double value) { cpSpaceSetDamping(*this, value); }
+        void   setGravity(const Vect& value) { cpSpaceSetGravity(*this, value); }
 
-        double GetDamping() { return cpSpaceGetDamping(*this); }
-        Vect GetGravity() { return cpSpaceGetGravity(*this); }
-        Body& GetStaticBody() { return staticBody; }
-        void Step(double dt) { return cpSpaceStep(*this, dt); }
+        double getDamping() { return cpSpaceGetDamping(*this); }
+        Vect   getGravity() { return cpSpaceGetGravity(*this); }
+        Body&  getStaticBody() { return staticBody; }
+
+        void   step(double dt) { return cpSpaceStep(*this, dt); }
 
     private:
         std::unique_ptr<cpSpace, std::function<void(cpSpace*)>> space;

@@ -6,17 +6,17 @@ Ball::Ball(cp::Space& space, const cp::Position& position, cpFloat radius, cpFlo
     , shape_{body_, radius}
     , sprite_{static_cast<float>(radius)}
 {
-    body_.SetPosition(position);
-    shape_.SetElasticity(.9);
-    space.Add(body_);
-    space.Add(shape_);
+    body_.setPosition(position);
+    shape_.setElasticity(.9);
+    space.add(body_);
+    space.add(shape_);
     sprite_.setOrigin(sf::Vector2f(radius, radius));
     sprite_.setFillColor(color_);
 }
 
 void Ball::update()
 {
-    position_ = body_.GetPosition();
+    position_ = body_.getPosition();
 }
 
 void Ball::draw(sf::RenderWindow& window)

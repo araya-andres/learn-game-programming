@@ -17,8 +17,8 @@ Game::Game()
     , player_{window_}
 {
     window_.setFramerateLimit(FRAMERATE);
-    space_.SetDamping(DAMPING);
-    space_.SetGravity({.0, GRAVITY});
+    space_.setDamping(DAMPING);
+    space_.setGravity({.0, GRAVITY});
     auto& texture = AssetManager::get<sf::Texture>("images/background.png");
     texture.setRepeated(true);
     background_.setTexture(texture);

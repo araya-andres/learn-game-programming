@@ -14,7 +14,7 @@ enum {
 int main()
 {
     cp::Space space;
-    space.SetGravity({0, 100});
+    space.setGravity({0, 100});
 
     Ball ball{space, {.33 * WIDTH, RADIUS}, RADIUS, 1};
 
@@ -39,6 +39,6 @@ int main()
         for(auto& p : platforms) p.draw(window);
         window.display();
 
-        space.Step(timeStep);
+        space.step(timeStep);
     };
 }
