@@ -28,7 +28,12 @@ namespace cp
     struct Body
     {
         Body(Mass m = .0, Inertia i = .0) : Body{cpBodyNew(m, i)} {}
-        Body(cpBody* body) : body{body, cpBodyFree} {}
+
+        static Body makeStatic()
+        {
+            return Body{cpBodyNewStatic()};
+        }
+
         operator cpBody*() { return body.get(); }
 
         void       applyForceAtWorldPoint(const Vect& force, const Vect& point) { cpBodyApplyForceAtWorldPoint(*this, force, point); }
@@ -61,6 +66,7 @@ namespace cp
         Vect       getVelocity() { return cpBodyGetVelocity(*this); }
 
     private:
+        Body(cpBody* body) : body{body, cpBodyFree} {}
         std::unique_ptr<cpBody, std::function<void(cpBody*)>> body;
     };
 
@@ -89,6 +95,16 @@ namespace cp
             return Shape{cpPolyShapeNew(body, verts.size(), verts.data(), transform, radius)};
         }
 
+        static Shape makeBox(Body& body, cpFloat width, cpFloat height, cpFloat radius = 0)
+        {
+            return Shape{cpBoxShapeNew(body, width, height, radius)};
+        }
+
+        static Shape makeBox(Body& body, BoundingBox& box, cpFloat radius = 0)
+        {
+            return Shape{cpBoxShapeNew2(body, box, radius)};
+        }
+
         operator cpShape*() { return shape.get(); }
 
         void   setCollisionType(float value) { cpShapeSetCollisionType(*this, value); }
@@ -112,7 +128,7 @@ namespace cp
     {
         Space()
             : space{cpSpaceNew(), cpSpaceFree}
-            , staticBody{cpBodyNewStatic()}
+            , staticBody{Body::makeStatic()}
         {
             add(staticBody);
         }

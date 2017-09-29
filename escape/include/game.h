@@ -5,7 +5,9 @@
 #include <list>
 
 #include "boulder.h"
+#include "platform.h"
 #include "player.h"
+#include "wall.h"
 
 struct Game
 {
@@ -26,6 +28,10 @@ private:
     cp::Space space_;
     sf::Sprite background_;
     std::list<Boulder> boulders_;
+    std::list<Platform> platforms_;
+    Wall floor_;
+    Wall left_wall_;
+    Wall right_wall_;
 };
 
 #endif

@@ -9,6 +9,7 @@ enum
     GRAVITY = 400,
     HEIGHT = 800,
     WIDTH = 800,
+    THIKNESS = 5,
 };
 
 const double DAMPING = .9;
@@ -16,6 +17,9 @@ const double DAMPING = .9;
 Game::Game()
     : window_{{WIDTH, HEIGHT}, "Escape"}
     , player_{window_}
+    , floor_{space_, 0, HEIGHT - THIKNESS, WIDTH, THIKNESS}
+    , left_wall_{space_, 0, 0, THIKNESS, HEIGHT - THIKNESS}
+    , right_wall_{space_, WIDTH - THIKNESS, 0, THIKNESS, HEIGHT - THIKNESS}
 {
     window_.setFramerateLimit(FRAMERATE);
     space_.setDamping(DAMPING);
@@ -24,6 +28,10 @@ Game::Game()
     texture.setRepeated(true);
     background_.setTexture(texture);
     background_.setTextureRect({0, 0, WIDTH, HEIGHT});
+    platforms_.emplace_front(window_, space_, 150, 700);
+    platforms_.emplace_front(window_, space_, 320, 650);
+    platforms_.emplace_front(window_, space_, 150, 500);
+    platforms_.emplace_front(window_, space_, 470, 550);
 }
 
 Game& Game::instance()
@@ -93,6 +101,9 @@ void Game::render()
     window_.draw(background_);
     for (auto& b : boulders_) {
         b.draw();
+    }
+    for (auto& p : platforms_) {
+        p.draw();
     }
     window_.display();
 }
