@@ -9,7 +9,7 @@ struct Platform
     Platform(cp::Space&, const cp::Vect&, const cp::Vect&);
     void draw(sf::RenderWindow&);
 private:
-    cp::Segment segment_;
+    cp::Shape shape_;
     sf::Vertex vertices_[2];
 };
 

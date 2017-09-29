@@ -1,9 +1,9 @@
 #include "ball.h"
 
-Ball::Ball(cp::Space& space, const cp::Position& position, cpFloat radius, cpFloat mass)
+Ball::Ball(cp::Space& space, const cp::Position& position, cpFloat radius, cp::Mass m)
     : position_{position}
-    , body_{mass, cpMomentForCircle(mass, 0, radius, {})}
-    , shape_{body_, radius}
+    , body_{m, cp::momentForCircle(m, radius)}
+    , shape_{cp::Shape::makeCircle(body_, radius)}
     , sprite_{static_cast<float>(radius)}
 {
     body_.setPosition(position);

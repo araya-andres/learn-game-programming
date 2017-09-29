@@ -8,12 +8,22 @@
 
 namespace cp
 {
-    using BB = cpBB;
-    using Inertia = float;
-    using Mass = float;
+    using BoundingBox = cpBB;
+    using Inertia = cpFloat;
+    using Mass = cpFloat;
     using Position = cpVect;
     using Transform = cpTransform;
     using Vect = cpVect;
+
+    inline Inertia momentForCircle(Mass m, float innerRadius, float outerRadius, Vect offset = {})
+    {
+        return cpMomentForCircle(m, innerRadius, outerRadius, offset);
+    }
+
+    inline Inertia momentForCircle(Mass m, float radius)
+    {
+        return cpMomentForCircle(m, 0, radius, {});
+    }
 
     struct Body
     {
@@ -64,7 +74,21 @@ namespace cp
 
     struct Shape
     {
-        Shape(cpShape* shape) : shape{shape, cpShapeFree} {}
+        static Shape makeCircle(Body& body, double radius, Vect offset = {.0, .0})
+        {
+            return Shape{cpCircleShapeNew(body, radius, offset)};
+        }
+
+        static Shape makeSegment(Body& body, const Vect& a, const Vect& b, double radius = .0)
+        {
+            return Shape{cpSegmentShapeNew(body, a, b, radius)};
+        }
+
+        static Shape makePolygon(Body& body, const std::vector<Vect> verts, Transform transform = {}, double radius = .0)
+        {
+            return Shape{cpPolyShapeNew(body, verts.size(), verts.data(), transform, radius)};
+        }
+
         operator cpShape*() { return shape.get(); }
 
         void   setCollisionType(float value) { cpShapeSetCollisionType(*this, value); }
@@ -72,35 +96,16 @@ namespace cp
         void   setFriction(double value) { cpShapeSetFriction(*this, value); }
         void   setSensor(bool value) { cpShapeSetSensor(*this, value); }
 
-        BB     getBoundingBox() { return cpShapeGetBB(*this); }
+        BoundingBox getBoundingBox() { return cpShapeGetBB(*this); }
         float  getCollisionType() { return cpShapeGetCollisionType(*this); }
         float  getElasticity() { return cpShapeGetElasticity(*this); }
         double getFriction() { return cpShapeGetFriction(*this); }
         bool   getSensor() { return cpShapeGetSensor(*this); }
 
     private:
+        Shape(cpShape* shape) : shape{shape, cpShapeFree} {}
+
         std::unique_ptr<cpShape, std::function<void(cpShape*)>> shape;
-    };
-
-    struct Circle : public Shape
-    {
-        Circle(Body& body, double radius, Vect offset = {.0, .0})
-            : Shape{cpCircleShapeNew(body, radius, offset)}
-        {}
-    };
-
-    struct Segment : public Shape
-    {
-        Segment(Body& body, const Vect& a, const Vect& b, double radius = .0)
-            : Shape{cpSegmentShapeNew(body, a, b, radius)}
-        {}
-    };
-
-    struct Polygon : public Shape
-    {
-        Polygon(Body& body, const std::vector<Vect> verts, Transform transform = {}, double radius = .0)
-            : Shape{cpPolyShapeNew(body, verts.size(), verts.data(), transform, radius)}
-        {}
     };
 
     struct Space
@@ -112,6 +117,7 @@ namespace cp
             add(staticBody);
         }
         operator cpSpace*() { return space.get(); }
+
         void   add(Body& body) { cpSpaceAddBody(*this, body); }
         void   add(Constraint& constraint) { cpSpaceAddConstraint(*this, constraint); }
         void   add(Shape& shape) { cpSpaceAddShape(*this, shape); }

@@ -6,13 +6,13 @@
 
 struct Ball
 {
-    Ball(cp::Space&, const cp::Position&, cpFloat radius, cpFloat mass);
+    Ball(cp::Space&, const cp::Position&, cpFloat radius, cp::Mass);
     void update();
     void draw(sf::RenderWindow&);
 private:
     cpVect position_;
     cp::Body body_;
-    cp::Circle shape_;
+    cp::Shape shape_;
     sf::CircleShape sprite_;
     sf::Color color_ = sf::Color::White;
 };
