@@ -11,6 +11,7 @@ struct Boulder : public GameEntity
 
 private:
     cp::Body body_;
+    cp::Polygon shape_;
 };
 
 #endif
