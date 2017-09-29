@@ -20,30 +20,9 @@ void GameEntity::draw()
     window_.draw(sprite_);
 }
 
-void GameEntity::update()
-{
-    velocity_ += acceleration_;
-    position_ += velocity_;
-}
-
 void GameEntity::mark_for_deletion()
 {
     mark_for_deletion_ = true;
-}
-
-const sf::Vector2f& GameEntity::position() const
-{
-    return position_;
-}
-
-const sf::Vector2f& GameEntity::velocity() const
-{
-    return velocity_;
-}
-
-float GameEntity::angle() const
-{
-    return angle_;
 }
 
 bool GameEntity::is_marked_for_deletion() const

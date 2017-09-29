@@ -7,8 +7,6 @@ struct Player : public GameEntity
 {
     Player(sf::RenderWindow&);
     void update() override;
-
-    static const float RADIUS;
 };
 
 #endif
