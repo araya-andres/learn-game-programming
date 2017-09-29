@@ -79,6 +79,9 @@ void Game::process_key_event(sf::Keyboard::Key code)
 void Game::update()
 {
     space_.step(1.0 / FRAMERATE);
+    for (auto& b : boulders_) {
+        b.update();
+    }
     if (random(0, 100) <= BOULDER_FREQUENCY) {
         boulders_.emplace_front(window_, space_, random(200, 400), 20);
     }

@@ -52,6 +52,8 @@ T squared_distance(const sf::Vector2<T>& a, const sf::Vector2<T>& b)
     return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
 }
 
+int random(int max);
+
 int random(int min, int max);
 
 sf::Vector2f cp_to_sf(const cp::Vect& v);

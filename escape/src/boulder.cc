@@ -27,6 +27,9 @@ Boulder::Boulder(sf::RenderWindow& window, cp::Space& space, double x, double y)
     shape_.setFriction(FRICTION);
     space.add(body_);
     space.add(shape_);
+    cp::Vect impulse{1.0 * random(10e4) - 5e4, 10e4};
+    cp::Vect point{.1 * (random(20, 80) - 40), .0};
+    body_.applyImpulseAtLocalPoint(impulse, point);
 }
 
 void Boulder::update()

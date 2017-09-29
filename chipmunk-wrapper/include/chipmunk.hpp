@@ -21,6 +21,10 @@ namespace cp
         Body(cpBody* body) : body{body, cpBodyFree} {}
         operator cpBody*() { return body.get(); }
 
+        void       applyForceAtWorldPoint(const Vect& force, const Vect& point) { cpBodyApplyForceAtWorldPoint(*this, force, point); }
+        void       applyForceAtLocalPoint(const Vect& force, const Vect& point) { cpBodyApplyForceAtLocalPoint(*this, force, point); }
+        void       applyImpulseAtWorldPoint(const Vect& impulse, const Vect& point) { cpBodyApplyImpulseAtWorldPoint(*this, impulse, point); }
+        void       applyImpulseAtLocalPoint(const Vect& impulse, const Vect& point) { cpBodyApplyImpulseAtLocalPoint(*this, impulse, point); }
         void       setAngle(double a) { cpBodySetAngle(*this, a); }
         void       setAngularVelocity(double value) { cpBodySetAngularVelocity(*this, value); }
         void       setCenterOfGravity(const Vect& cog) { cpBodySetCenterOfGravity(*this, cog); }
