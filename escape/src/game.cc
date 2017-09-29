@@ -4,6 +4,7 @@
 
 enum
 {
+    BOULDER_FREQUENCY = 1,
     FRAMERATE = 60,
     GRAVITY = 400,
     HEIGHT = 800,
@@ -78,11 +79,17 @@ void Game::process_key_event(sf::Keyboard::Key code)
 void Game::update()
 {
     space_.step(1.0 / FRAMERATE);
+    if (random(0, 100) <= BOULDER_FREQUENCY) {
+        boulders_.emplace_front(window_, space_, random(200, 400), 20);
+    }
 }
 
 void Game::render()
 {
     window_.clear(sf::Color::Black);
     window_.draw(background_);
+    for (auto& b : boulders_) {
+        b.draw();
+    }
     window_.display();
 }

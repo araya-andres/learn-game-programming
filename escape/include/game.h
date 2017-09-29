@@ -2,8 +2,10 @@
 #define GAME_H
 
 #include "chipmunk.hpp"
-#include "player.h"
 #include <list>
+
+#include "boulder.h"
+#include "player.h"
 
 struct Game
 {
@@ -23,6 +25,7 @@ private:
     Player player_;
     cp::Space space_;
     sf::Sprite background_;
+    std::list<Boulder> boulders_;
 };
 
 #endif
