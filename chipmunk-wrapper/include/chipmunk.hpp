@@ -25,6 +25,21 @@ namespace cp
         return cpMomentForCircle(m, 0, radius, {});
     }
 
+    inline double length(const Vect& v)
+    {
+        return cpvlength(v);
+    }
+
+    inline double lengthsq(const Vect& v)
+    {
+        return cpvlengthsq(v);
+    }
+
+    inline Vect clamp(const Vect& v, double len)
+    {
+        return cpvclamp(v, len);
+    }
+
     struct Body
     {
         Body(Mass m = .0, Inertia i = .0) : Body{cpBodyNew(m, i)} {}
@@ -38,8 +53,10 @@ namespace cp
 
         void       applyForceAtWorldPoint(const Vect& force, const Vect& point) { cpBodyApplyForceAtWorldPoint(*this, force, point); }
         void       applyForceAtLocalPoint(const Vect& force, const Vect& point) { cpBodyApplyForceAtLocalPoint(*this, force, point); }
+        void       applyForce(const Vect& force) { applyForceAtLocalPoint(force, {}); }
         void       applyImpulseAtWorldPoint(const Vect& impulse, const Vect& point) { cpBodyApplyImpulseAtWorldPoint(*this, impulse, point); }
         void       applyImpulseAtLocalPoint(const Vect& impulse, const Vect& point) { cpBodyApplyImpulseAtLocalPoint(*this, impulse, point); }
+        void       applyImpulse(const Vect& impulse) { applyImpulseAtLocalPoint(impulse, {}); }
         void       setAngle(double a) { cpBodySetAngle(*this, a); }
         void       setAngularVelocity(double value) { cpBodySetAngularVelocity(*this, value); }
         void       setCenterOfGravity(const Vect& cog) { cpBodySetCenterOfGravity(*this, cog); }

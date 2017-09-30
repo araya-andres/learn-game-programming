@@ -20,7 +20,7 @@ const static std::vector<cp::Vect> VERTICES {
 #endif
 
 Boulder::Boulder(sf::RenderWindow& window, cp::Space& space, double x, double y)
-    : GameEntity{window, "images/boulder.png"}
+    : Sprite{window, "images/boulder.png"}
     , body_{cp::Mass{400}, cp::Inertia{4000}}
     , shape_{cp::Shape::makeBox(body_, 35, 25)} // FIXME
 {
@@ -38,4 +38,9 @@ void Boulder::update()
 {
     angle_ = body_.getAngle();
     position_ = cp_to_sf(body_.getPosition());
+}
+
+sf::FloatRect Boulder::get_bounds()
+{
+    return sprite_.getGlobalBounds();
 }

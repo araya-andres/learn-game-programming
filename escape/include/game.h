@@ -5,8 +5,8 @@
 #include <list>
 
 #include "boulder.h"
+#include "chip.h"
 #include "platform.h"
-#include "player.h"
 #include "wall.h"
 
 struct Game
@@ -23,15 +23,19 @@ private:
     void update();
     void render();
 
+    void make_platforms();
+    void set_background();
+    std::vector<sf::FloatRect> get_bounds();
+
     sf::RenderWindow window_;
-    Player player_;
     cp::Space space_;
-    sf::Sprite background_;
+    Chip chip_;
     std::list<Boulder> boulders_;
     std::list<Platform> platforms_;
     Wall floor_;
     Wall left_wall_;
     Wall right_wall_;
+    sf::Sprite background_;
 };
 
 #endif

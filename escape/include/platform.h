@@ -3,12 +3,12 @@
 
 #include "chipmunk.hpp"
 
-#include "game_entity.h"
+#include "sprite.h"
 
-struct Platform : public GameEntity
+struct Platform: public Sprite
 {
     Platform(sf::RenderWindow&, cp::Space&, double x, double y);
-    void update() override {}
+    sf::FloatRect get_bounds();
 
 private:
     cp::Body body_;

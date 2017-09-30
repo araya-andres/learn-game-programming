@@ -6,7 +6,7 @@ static const int WIDTH = 96;
 static const int HEIGHT = 16;
 
 Platform::Platform(sf::RenderWindow& window, cp::Space& space, double x, double y)
-    : GameEntity{window, "images/platform.png"}
+    : Sprite{window, "images/platform.png"}
     , body_{cp::Body::makeStatic()}
     , shape_{cp::Shape::makeBox(body_, WIDTH, HEIGHT)}
 {
@@ -17,4 +17,9 @@ Platform::Platform(sf::RenderWindow& window, cp::Space& space, double x, double 
     shape_.setFriction(FRICTION);
     space.add(body_);
     space.add(shape_);
+}
+
+sf::FloatRect Platform::get_bounds()
+{
+    return sprite_.getGlobalBounds();
 }
