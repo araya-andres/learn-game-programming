@@ -3,8 +3,8 @@
 
 const static double ELASTICITY = .95;
 const static double FRICTION = .7;
-#if 0
 const static int SPEED_LIMIT = 500;
+#if 0
 const static std::vector<cp::Vect> VERTICES {
         {-13, -6},
         {-16, -4},
@@ -20,7 +20,7 @@ const static std::vector<cp::Vect> VERTICES {
 #endif
 
 Boulder::Boulder(sf::RenderWindow& window, cp::Space& space, double x, double y)
-    : Sprite{window, "images/boulder.png"}
+    : sprite_{window, "images/boulder.png"}
     , body_{cp::Mass{400}, cp::Inertia{4000}}
     , shape_{cp::Shape::makeBox(body_, 35, 25)} // FIXME
 {
@@ -34,13 +34,20 @@ Boulder::Boulder(sf::RenderWindow& window, cp::Space& space, double x, double y)
     body_.applyImpulseAtLocalPoint(impulse, point);
 }
 
+void Boulder::draw()
+{
+    sprite_.draw();
+}
+
 void Boulder::update()
 {
-    angle_ = body_.getAngle();
-    position_ = cp_to_sf(body_.getPosition());
+    body_.setVelocity(cp::clamp(body_.getVelocity(), SPEED_LIMIT));
+    const auto position = body_.getPosition();
+    sprite_.set_angle(body_.getAngle());
+    sprite_.set_position(position.x, position.y);
 }
 
 sf::FloatRect Boulder::get_bounds()
 {
-    return sprite_.getGlobalBounds();
+    return sprite_.get_bounds();
 }

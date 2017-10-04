@@ -4,12 +4,13 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
-#include "drawable.h"
-
-struct Sprite: public Drawable
+struct Sprite
 {
     Sprite(sf::RenderWindow&, const std::string& fname);
-    void draw() override;
+    void draw();
+    void set_position(float x, float y);
+    void set_angle(float);
+    sf::FloatRect get_bounds();
 
 protected:
     sf::RenderWindow& window_;

@@ -25,6 +25,11 @@ namespace cp
         return cpMomentForCircle(m, 0, radius, {});
     }
 
+    inline Vect clamp(const Vect& v, double len)
+    {
+        return cpvclamp(v, len);
+    }
+
     inline double length(const Vect& v)
     {
         return cpvlength(v);
@@ -35,9 +40,9 @@ namespace cp
         return cpvlengthsq(v);
     }
 
-    inline Vect clamp(const Vect& v, double len)
+    inline Vect neg(const Vect& v)
     {
-        return cpvclamp(v, len);
+        return cpvneg(v);
     }
 
     struct Body

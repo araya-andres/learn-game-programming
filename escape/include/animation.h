@@ -5,10 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "drawable.h"
-#include "updateable.h"
-
-struct Animation: public Drawable, public Updateable
+struct Animation
 {
     using Frame = sf::IntRect;
 
@@ -23,8 +20,8 @@ struct Animation: public Drawable, public Updateable
             const sf::Vector2i& start_from,
             const sf::Vector2i& frame_size,
             int frames);
-    void update() override;
-    void draw() override;
+    void update();
+    void draw();
     void set_position(float x, float y);
     void set_angle(float angle);
     void set_scale(float factor_x, float factor_y);

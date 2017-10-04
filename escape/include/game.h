@@ -14,7 +14,9 @@ struct Game
     Game(const Game&) = delete;
     Game& operator=(const Game&) = delete;
     static Game& instance();
+    static const cp::Vect& gravity();
     void run();
+
 private:
     Game();
 
@@ -31,7 +33,7 @@ private:
     cp::Space space_;
     Chip chip_;
     std::list<Boulder> boulders_;
-    std::list<Platform> platforms_;
+    std::list<std::unique_ptr<Platform>> platforms_;
     Wall floor_;
     Wall left_wall_;
     Wall right_wall_;

@@ -5,9 +5,11 @@
 #include <map>
 
 #include "chipmunk.hpp"
-#include "animation.h"
+
 #include "drawable.h"
 #include "updateable.h"
+
+#include "animation.h"
 
 class Chip: public Drawable, public Updateable
 {
@@ -21,8 +23,9 @@ class Chip: public Drawable, public Updateable
 public:
     Chip(sf::RenderWindow&, cp::Space&, double x, double y);
     void set_action(Action);
-    void update();
-    void draw();
+    void update() override;
+    void draw() override;
+    sf::FloatRect get_bounds() override;
     void move_right();
     void move_left();
     void jump();

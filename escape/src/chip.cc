@@ -84,6 +84,11 @@ void Chip::draw()
     animation_.at(current_action_).draw();
 }
 
+sf::FloatRect Chip::get_bounds()
+{
+    return {}; // FIXME
+}
+
 void Chip::check_footing(const std::vector<sf::FloatRect>& bounds)
 {
     const auto position = body_.getPosition();

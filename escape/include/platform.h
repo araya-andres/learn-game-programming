@@ -1,18 +1,22 @@
 #ifndef PLATFORM_H
 #define PLATFORM_H
 
-#include "chipmunk.hpp"
+#include <SFML/Graphics.hpp>
 
-#include "sprite.h"
+#include "drawable.h"
+#include "updateable.h"
 
-struct Platform: public Sprite
+struct Platform: public Drawable, public Updateable
 {
     Platform(sf::RenderWindow&, cp::Space&, double x, double y);
-    sf::FloatRect get_bounds();
+    ~Platform();
+    void update() override;
+    void draw() override;
+    sf::FloatRect get_bounds() override;
 
-private:
-    cp::Body body_;
-    cp::Shape shape_;
+protected:
+    struct Impl;
+    Impl* pimpl_;
 };
 
 #endif

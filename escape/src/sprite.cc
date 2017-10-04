@@ -16,3 +16,19 @@ void Sprite::draw()
     sprite_.setPosition(position_);
     window_.draw(sprite_);
 }
+
+void Sprite::set_position(float x, float y)
+{
+    position_.x = x;
+    position_.y = y;
+}
+
+void Sprite::set_angle(float angle)
+{
+    angle_ = angle;
+}
+
+sf::FloatRect Sprite::get_bounds()
+{
+    return sprite_.getGlobalBounds();
+}

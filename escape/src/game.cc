@@ -23,7 +23,7 @@ Game::Game()
 {
     window_.setFramerateLimit(FRAMERATE);
     space_.setDamping(DAMPING);
-    space_.setGravity({.0, GRAVITY});
+    space_.setGravity(Game::gravity());
     set_background();
     make_platforms();
 }
@@ -31,6 +31,12 @@ Game::Game()
 Game& Game::instance()
 {
     static Game g;
+    return g;
+}
+
+const cp::Vect& Game::gravity()
+{
+    const static cp::Vect g{0, GRAVITY};
     return g;
 }
 
@@ -44,10 +50,10 @@ void Game::set_background()
 
 void Game::make_platforms()
 {
-    platforms_.emplace_front(window_, space_, 150, 700);
-    platforms_.emplace_front(window_, space_, 320, 650);
-    platforms_.emplace_front(window_, space_, 150, 500);
-    platforms_.emplace_front(window_, space_, 470, 550);
+    platforms_.emplace_front(new Platform{window_, space_, 150, 700});
+    platforms_.emplace_front(new Platform{window_, space_, 320, 650});
+    platforms_.emplace_front(new Platform{window_, space_, 150, 500});
+    platforms_.emplace_front(new Platform{window_, space_, 470, 550});
 }
 
 void Game::run()
@@ -114,7 +120,7 @@ void Game::render()
     window_.draw(background_);
     chip_.draw();
     for (auto& p: platforms_) {
-        p.draw();
+        p->draw();
     }
     for (auto& b: boulders_) {
         b.draw();
@@ -128,7 +134,7 @@ std::vector<sf::FloatRect> Game::get_bounds()
     std::transform(
             platforms_.begin(), platforms_.end(),
             std::back_inserter(bounds),
-            [](Platform& p) { return p.get_bounds(); }
+            [](std::unique_ptr<Platform>& p) { return p->get_bounds(); }
             );
     std::transform(
             boulders_.begin(), boulders_.end(),
